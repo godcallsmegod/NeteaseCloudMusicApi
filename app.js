@@ -113,9 +113,11 @@ const port = process.env.PORT || 3000
 const host = process.env.HOST || ''
 
 app.get('/v2api/song/url', function (req, res) {
+  console.log(req)
+  console.log(res)
   if(res.id){
     const _url = `https://music.163.com/song/media/outer/url?id=${res.id}`
-    res.json({url: _url})
+    res.json({short: _url, url: _url})
   }
 })
 
