@@ -8,6 +8,7 @@ const exec = require('child_process').exec
 const cache = require('./util/apicache').middleware
 const { cookieToJson } = require('./util/index')
 const fileUpload = require('express-fileupload')
+const http = require('http')
 // version check
 exec('npm info NeteaseCloudMusicApi version', (err, stdout, stderr) => {
   if (!err) {
@@ -112,11 +113,17 @@ fs.readdirSync(path.join(__dirname, 'module'))
 const port = process.env.PORT || 3000
 const host = process.env.HOST || ''
 
-app.get('/v2api/song/url', function (req, res) {
-  console.log(req.query)
+app.get('/v2api/song/url', async function (req, res) {
   if(req.query.id){
-    const _url = `https://music.163.com/song/media/outer/url?id=${req.query.id}`
-    res.json({short: _url, url: _url})
+    const _shortURL = `https://music.163.com/song/media/outer/url?id=${req.query.id}`
+    await http.get(_shortURL,function(data){
+      data.on("end",function(){
+        console.log(str.toString())
+      })
+    })
+    res.json({short: _shortURL, url: _shortURL})
+  }else{
+    res.json({error: true})
   }
 })
 
