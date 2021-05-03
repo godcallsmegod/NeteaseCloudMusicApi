@@ -24,5 +24,6 @@ module.exports = (query, request) => {
       realIP: query.realIP,
       url: '/api/song/enhance/player/url',
     },
-  )}
+  )
+  }
 }
