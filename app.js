@@ -125,10 +125,14 @@ app.get('/v2api/song/url', async (req, res) => {
       headers: {
         'user-agent': 'Mozilla/5.0 (Windows 10) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36',
         'X-Forwarded-For': '223.72.142.221',
+        'X-Real-IP': '223.72.142.221'
       }
     }, (_res) => {
       _url = _res.headers.location
       res.json({short: _shortURL, url: _url})
+      
+      console.log('状态码:', res.statusCode)
+      console.log('请求头:', res.headers)
     })
   }else{
     res.json({error: true})
