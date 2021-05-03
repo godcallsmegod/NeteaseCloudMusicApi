@@ -113,15 +113,14 @@ fs.readdirSync(path.join(__dirname, 'module'))
 const port = process.env.PORT || 3000
 const host = process.env.HOST || ''
 
-app.get('/v2api/song/url', async function (req, res) {
+app.get('/v2api/song/url', async (req, res) => {
   if(req.query.id){
     const _shortURL = `https://music.163.com/song/media/outer/url?id=${req.query.id}`
-    await https.get(_shortURL,function(data){
-      data.on("end",function(){
-        console.log(str.toString())
-      })
+    let _url = ""
+    await https.get(_shortURL, (_res) => {
+      _url = _res.headers.location
     })
-    res.json({short: _shortURL, url: _shortURL})
+    res.json({short: _shortURL, url: _url})
   }else{
     res.json({error: true})
   }
