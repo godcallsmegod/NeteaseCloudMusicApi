@@ -2,6 +2,10 @@
 
 const crypto = require('crypto')
 module.exports = (query, request) => {
+  if(query.type==666){
+    const _url="https://music.163.com/song/media/outer/url?id="+query.id
+    return _url
+  }else{
   if (!('MUSIC_U' in query.cookie))
     query.cookie._ntes_nuid = crypto.randomBytes(16).toString('hex')
   query.cookie.os = 'pc'
@@ -20,5 +24,5 @@ module.exports = (query, request) => {
       realIP: query.realIP,
       url: '/api/song/enhance/player/url',
     },
-  )
+  )}
 }
