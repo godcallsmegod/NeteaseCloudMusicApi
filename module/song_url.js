@@ -11,7 +11,7 @@ module.exports = (query, request) => {
   }
   return request(
     'POST',
-    `https://interface3.music.163.com/eapi/song/enhance/player/url`,
+    `https://music.163.com/weapi/song/enhance/player/url/v1`,
     data,
     {
       crypto: 'eapi',
