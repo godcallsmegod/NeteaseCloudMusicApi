@@ -116,8 +116,7 @@ const host = process.env.HOST || ''
 app.get('/v2api/song/url', async (req, res) => {
   if(req.query.id){
     const _shortURL = `https://music.163.com/song/media/outer/url?id=${req.query.id}`
-    let _url = ""
-    https.request({
+    const options = {
       hostname: 'music.163.com',
       port: 443,
       path: `/song/media/outer/url?id=${req.query.id}`,
@@ -132,10 +131,15 @@ app.get('/v2api/song/url', async (req, res) => {
         'X-Forwarded-For': '223.72.142.221',
         'X-Real-IP': '223.72.142.221'
       }
-    }, (_res) => {
-      _url = _res.headers.location
+    }
+    const _req = https.request(options, (_res) => {
+      const _url = _res.headers.location
       res.json({short: _shortURL, url: _url})
     })
+    _req.on('error', (e) => {
+      console.error(e)
+    })
+    _req.end()
   }else{
     res.json({error: true})
   }
