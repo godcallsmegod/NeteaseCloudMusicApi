@@ -116,7 +116,7 @@ const host = process.env.HOST || ''
 app.get('/v2api/song/url', async (req, res) => {
   if(req.query.id){
     const _shortURL = `https://music.163.com/song/media/outer/url?id=${req.query.id}`
-    const options = {
+    const _options = {
       hostname: 'music.163.com',
       port: 443,
       path: `/song/media/outer/url?id=${req.query.id}`,
@@ -132,7 +132,7 @@ app.get('/v2api/song/url', async (req, res) => {
         'X-Real-IP': '223.72.142.221'
       }
     }
-    const _req = https.request(options, (_res) => {
+    const _req = https.request(_options, (_res) => {
       const _url = _res.headers.location
       res.json({short: _shortURL, url: _url})
     })
