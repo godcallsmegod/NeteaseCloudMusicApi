@@ -123,8 +123,7 @@ app.get('/v2api/song/url', async (req, res) => {
       method: 'GET',
       headers: {
         'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8'
-        'content-type': 'application/x-www-form-urlencoded',
+        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
         'origin': 'https://music.163.com',
         'referer': 'https://music.163.com/',
         'user-agent': 'Mozilla/5.0 (Windows 10) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36',
